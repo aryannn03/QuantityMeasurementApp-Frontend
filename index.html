@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuantityHub — Precision Measurement Tools</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+
+<div id="authOverlay" class="auth-overlay hidden">
+  <div class="auth-modal">
+    <button class="auth-close-btn" id="authCloseBtn"><i class="fa fa-times"></i></button>
+
+    <div class="auth-brand">
+      <div class="auth-logo">Q</div>
+      <span>QuantityHub</span>
+    </div>
+
+    <!-- Tabs -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login">Sign In</button>
+      <button class="auth-tab" data-tab="signup">Sign Up</button>
+    </div>
+
+    <!-- Login Panel -->
+    <div class="auth-panel active" id="loginPanel">
+      <button class="google-btn" id="googleLoginBtn">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.29-8.16 2.29-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-divider"><span>or</span></div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <div class="input-wrap">
+          <i class="fa fa-envelope"></i>
+          <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <i class="fa fa-lock"></i>
+          <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password"/>
+          <button class="toggle-pass" type="button"><i class="fa fa-eye"></i></button>
+        </div>
+      </div>
+
+      <button class="auth-submit-btn" id="loginBtn">
+        <span>Sign In</span>
+        <div class="btn-loader hidden"><i class="fa fa-spinner fa-spin"></i></div>
+      </button>
+    </div>
+
+    <!-- Signup Panel -->
+    <div class="auth-panel" id="signupPanel">
+      <button class="google-btn" id="googleSignupBtn">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.29-8.16 2.29-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-divider"><span>or</span></div>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <div class="input-wrap">
+          <i class="fa fa-user"></i>
+          <input type="text" id="signupName" placeholder="John Doe"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <div class="input-wrap">
+          <i class="fa fa-envelope"></i>
+          <input type="email" id="signupEmail" placeholder="you@example.com"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <i class="fa fa-lock"></i>
+          <input type="password" id="signupPassword" placeholder="Min 6 characters"/>
+          <button class="toggle-pass" type="button"><i class="fa fa-eye"></i></button>
+        </div>
+      </div>
+
+      <button class="auth-submit-btn" id="signupBtn">
+        <span>Create Account</span>
+        <div class="btn-loader hidden"><i class="fa fa-spinner fa-spin"></i></div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TOAST CONTAINER
+══════════════════════════════════════════════════════════ -->
+<div id="toastContainer" class="toast-container"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SIDEBAR
+══════════════════════════════════════════════════════════ -->
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-logo">Q</div>
+      <span class="brand-name">QuantityHub</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-page="dashboard">
+        <i class="fa fa-th-large"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-page="convert">
+        <i class="fa fa-exchange-alt"></i>
+        <span>Convert</span>
+      </a>
+      <a href="#" class="nav-item" data-page="compare">
+        <i class="fa fa-not-equal"></i>
+        <span>Compare</span>
+      </a>
+      <a href="#" class="nav-item" data-page="arithmetic">
+        <i class="fa fa-calculator"></i>
+        <span>Arithmetic</span>
+      </a>
+      <a href="#" class="nav-item auth-required" data-page="history">
+        <i class="fa fa-history"></i>
+        <span>History</span>
+        <span class="lock-badge"><i class="fa fa-lock"></i></span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info hidden" id="sidebarUser">
+        <div class="user-avatar" id="userAvatar">U</div>
+        <div class="user-details">
+          <span class="user-name" id="userName">User</span>
+          <span class="user-email-small" id="userEmail">user@email.com</span>
+        </div>
+      </div>
+      <a href="#" class="nav-item logout-btn hidden" id="logoutBtn">
+        <i class="fa fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+      <a href="#" class="nav-item login-nav-btn" id="loginNavBtn">
+        <i class="fa fa-sign-in-alt"></i>
+        <span>Sign In</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════════════════════════ -->
+  <main class="main-content">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fa fa-bars"></i>
+      </button>
+      <h1 class="page-title" id="pageTitle">Dashboard</h1>
+      <div class="topbar-right">
+        <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+          <i class="fa fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- ─────────────────── DASHBOARD PAGE ─────────────────── -->
+    <section class="page active" id="page-dashboard">
+      <div class="page-hero">
+        <div class="hero-text">
+          <h2>Welcome back<span id="heroName"></span>! 👋</h2>
+          <p>Here's an overview of your measurement operations</p>
+        </div>
+        <div class="hero-badge">
+          <i class="fa fa-ruler-combined"></i>
+        </div>
+      </div>
+
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card" data-op="CONVERT" style="--accent:#14b8a6">
+          <div class="stat-icon" style="background:linear-gradient(135deg,#14b8a6,#0d9488)">
+            <i class="fa fa-exchange-alt"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Conversions</span>
+            <span class="stat-value" id="countCONVERT">—</span>
+          </div>
+          <div class="stat-trend"><i class="fa fa-arrow-right"></i></div>
+        </div>
+        <div class="stat-card" data-op="COMPARE" style="--accent:#8b5cf6">
+          <div class="stat-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
+            <i class="fa fa-not-equal"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Comparisons</span>
+            <span class="stat-value" id="countCOMPARE">—</span>
+          </div>
+          <div class="stat-trend"><i class="fa fa-arrow-right"></i></div>
+        </div>
+        <div class="stat-card" data-op="ADD" style="--accent:#0ea5e9">
+          <div class="stat-icon" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">
+            <i class="fa fa-plus"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Additions</span>
+            <span class="stat-value" id="countADD">—</span>
+          </div>
+          <div class="stat-trend"><i class="fa fa-arrow-right"></i></div>
+        </div>
+        <div class="stat-card" data-op="SUBTRACT" style="--accent:#ef4444">
+          <div class="stat-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)">
+            <i class="fa fa-minus"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Subtractions</span>
+            <span class="stat-value" id="countSUBTRACT">—</span>
+          </div>
+          <div class="stat-trend"><i class="fa fa-arrow-right"></i></div>
+        </div>
+        <div class="stat-card" data-op="DIVIDE" style="--accent:#f59e0b">
+          <div class="stat-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+            <i class="fa fa-divide"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Divisions</span>
+            <span class="stat-value" id="countDIVIDE">—</span>
+          </div>
+          <div class="stat-trend"><i class="fa fa-arrow-right"></i></div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <h3>Quick Actions</h3>
+        <div class="qa-grid">
+          <button class="qa-btn" data-page="convert">
+            <i class="fa fa-exchange-alt"></i> Convert Units
+          </button>
+          <button class="qa-btn" data-page="compare">
+            <i class="fa fa-not-equal"></i> Compare Values
+          </button>
+          <button class="qa-btn" data-page="arithmetic">
+            <i class="fa fa-calculator"></i> Arithmetic
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── CONVERT PAGE ─────────────────── -->
+    <section class="page" id="page-convert">
+      <div class="page-header-row">
+        <div>
+          <h2 class="section-title">Unit Converter</h2>
+          <p class="section-sub">Convert between any measurement units instantly</p>
+        </div>
+      </div>
+
+      <div class="card op-card">
+        <div class="op-form">
+          <div class="form-row three-col">
+            <div class="form-group">
+              <label>Value</label>
+              <input type="number" id="convValue" placeholder="e.g. 100" class="field-input"/>
+            </div>
+            <div class="form-group">
+              <label>Measurement Type</label>
+              <select id="convType" class="field-input">
+                <option value="">Select type</option>
+                <option value="LENGTH">Length</option>
+                <option value="WEIGHT">Weight</option>
+                <option value="VOLUME">Volume</option>
+                <option value="TEMPERATURE">Temperature</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>From Unit</label>
+              <select id="convUnit" class="field-input"><option value="">Select unit</option></select>
+            </div>
+          </div>
+          <div class="form-row two-col">
+            <div class="form-group">
+              <label>Convert To</label>
+              <select id="convTarget" class="field-input"><option value="">Select target unit</option></select>
+            </div>
+            <div class="form-group flex-end">
+              <button class="op-btn" id="convertBtn">
+                <i class="fa fa-exchange-alt"></i> Convert
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-box hidden" id="convertResult">
+          <div class="result-label">Result</div>
+          <div class="result-value" id="convertResultVal">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── COMPARE PAGE ─────────────────── -->
+    <section class="page" id="page-compare">
+      <div class="page-header-row">
+        <div>
+          <h2 class="section-title">Compare Quantities</h2>
+          <p class="section-sub">Check if two measurements are equivalent</p>
+        </div>
+      </div>
+
+      <div class="card op-card">
+        <div class="two-quantity-form">
+          <div class="qty-block">
+            <h4 class="qty-label"><span class="qty-num">1</span> First Quantity</h4>
+            <div class="form-row two-col">
+              <div class="form-group">
+                <label>Value</label>
+                <input type="number" id="cmp1Value" placeholder="e.g. 1" class="field-input"/>
+              </div>
+              <div class="form-group">
+                <label>Type</label>
+                <select id="cmp1Type" class="field-input">
+                  <option value="">Select type</option>
+                  <option value="LENGTH">Length</option>
+                  <option value="WEIGHT">Weight</option>
+                  <option value="VOLUME">Volume</option>
+                  <option value="TEMPERATURE">Temperature</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Unit</label>
+              <select id="cmp1Unit" class="field-input"><option value="">Select unit</option></select>
+            </div>
+          </div>
+
+          <div class="vs-divider"><span>VS</span></div>
+
+          <div class="qty-block">
+            <h4 class="qty-label"><span class="qty-num">2</span> Second Quantity</h4>
+            <div class="form-row two-col">
+              <div class="form-group">
+                <label>Value</label>
+                <input type="number" id="cmp2Value" placeholder="e.g. 12" class="field-input"/>
+              </div>
+              <div class="form-group">
+                <label>Type</label>
+                <select id="cmp2Type" class="field-input">
+                  <option value="">Select type</option>
+                  <option value="LENGTH">Length</option>
+                  <option value="WEIGHT">Weight</option>
+                  <option value="VOLUME">Volume</option>
+                  <option value="TEMPERATURE">Temperature</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Unit</label>
+              <select id="cmp2Unit" class="field-input"><option value="">Select unit</option></select>
+            </div>
+          </div>
+        </div>
+
+        <button class="op-btn center-btn" id="compareBtn">
+          <i class="fa fa-not-equal"></i> Compare
+        </button>
+
+        <div class="result-box hidden" id="compareResult">
+          <div class="result-label">Result</div>
+          <div class="result-value compare-result" id="compareResultVal">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── ARITHMETIC PAGE ─────────────────── -->
+    <section class="page" id="page-arithmetic">
+      <div class="page-header-row">
+        <div>
+          <h2 class="section-title">Arithmetic Operations</h2>
+          <p class="section-sub">Add, subtract, or divide measurement quantities</p>
+        </div>
+      </div>
+
+      <div class="card op-card">
+        <div class="arith-op-tabs">
+          <button class="arith-tab active" data-op="add"><i class="fa fa-plus"></i> Add</button>
+          <button class="arith-tab" data-op="subtract"><i class="fa fa-minus"></i> Subtract</button>
+          <button class="arith-tab" data-op="divide"><i class="fa fa-divide"></i> Divide</button>
+        </div>
+
+        <div class="two-quantity-form">
+          <div class="qty-block">
+            <h4 class="qty-label"><span class="qty-num">1</span> First Quantity</h4>
+            <div class="form-row two-col">
+              <div class="form-group">
+                <label>Value</label>
+                <input type="number" id="arith1Value" placeholder="e.g. 5" class="field-input"/>
+              </div>
+              <div class="form-group">
+                <label>Type</label>
+                <select id="arith1Type" class="field-input">
+                  <option value="">Select type</option>
+                  <option value="LENGTH">Length</option>
+                  <option value="WEIGHT">Weight</option>
+                  <option value="VOLUME">Volume</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Unit</label>
+              <select id="arith1Unit" class="field-input"><option value="">Select unit</option></select>
+            </div>
+          </div>
+
+          <div class="op-symbol" id="opSymbol">+</div>
+
+          <div class="qty-block">
+            <h4 class="qty-label"><span class="qty-num">2</span> Second Quantity</h4>
+            <div class="form-row two-col">
+              <div class="form-group">
+                <label>Value</label>
+                <input type="number" id="arith2Value" placeholder="e.g. 3" class="field-input"/>
+              </div>
+              <div class="form-group">
+                <label>Type</label>
+                <select id="arith2Type" class="field-input">
+                  <option value="">Select type</option>
+                  <option value="LENGTH">Length</option>
+                  <option value="WEIGHT">Weight</option>
+                  <option value="VOLUME">Volume</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Unit</label>
+              <select id="arith2Unit" class="field-input"><option value="">Select unit</option></select>
+            </div>
+          </div>
+        </div>
+
+        <button class="op-btn center-btn" id="arithBtn">
+          <i class="fa fa-equals"></i> Calculate
+        </button>
+
+        <div class="result-box hidden" id="arithResult">
+          <div class="result-label">Result</div>
+          <div class="result-value" id="arithResultVal">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────── HISTORY PAGE ─────────────────── -->
+    <section class="page" id="page-history">
+      <div class="page-header-row">
+        <div>
+          <h2 class="section-title">Operation History</h2>
+          <p class="section-sub">Browse all past measurement operations</p>
+        </div>
+      </div>
+
+      <div class="history-filters">
+        <button class="hist-filter active" data-op="ALL">All</button>
+        <button class="hist-filter" data-op="CONVERT">Convert</button>
+        <button class="hist-filter" data-op="COMPARE">Compare</button>
+        <button class="hist-filter" data-op="ADD">Add</button>
+        <button class="hist-filter" data-op="SUBTRACT">Subtract</button>
+        <button class="hist-filter" data-op="DIVIDE">Divide</button>
+      </div>
+
+      <div class="history-list" id="historyList">
+        <div class="empty-state">
+          <i class="fa fa-history"></i>
+          <p>No history found</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
