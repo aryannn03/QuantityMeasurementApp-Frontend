@@ -63,7 +63,7 @@ export class AuthService {
   }
 
   googleLogin() {
-    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+    window.location.href = '${environment.apiUrl}/oauth2/authorization/google';
   }
 
   handleGoogleCallback(token: string) {
